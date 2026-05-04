@@ -1,6 +1,8 @@
 <script setup>
 import { useTheme } from 'vuetify'
 import navConfig from './navConfig.json'
+import iconSunny from './assets/icons/weather-sunny.svg?raw'
+import iconNight from './assets/icons/weather-night.svg?raw'
 
 const theme = useTheme()
 function toggleTheme() {
@@ -14,7 +16,7 @@ function toggleTheme() {
 			<v-app-bar-title>SMTP Inbound Controls</v-app-bar-title>
 			<template #append>
 				<v-btn icon class="mr-1" @click="toggleTheme">
-					<v-icon>{{ theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+					<SvgIcon :svg="theme.global.current.value.dark ? iconSunny : iconNight" :size="24" />
 				</v-btn>
 			</template>
 		</v-app-bar>
