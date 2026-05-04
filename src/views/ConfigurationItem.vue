@@ -1,9 +1,5 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import iconPlus from '../assets/icons/plus-circle-outline.svg?raw'
-import iconDelete from '../assets/icons/trash-can-outline.svg?raw'
-import iconArrowUp from '../assets/icons/arrow-up.svg?raw'
-import iconArrowDown from '../assets/icons/arrow-down.svg?raw'
 import moment from 'moment'
 
 const props = defineProps({
@@ -155,7 +151,7 @@ async function deleteSelected() {
 }
 
 function sortIcon(key) {
-	return sortBy.value.find(s => s.key === key)?.order === 'asc' ? iconArrowUp : iconArrowDown
+	return sortBy.value.find(s => s.key === key)?.order === 'asc' ? 'mdi-arrow-up' : 'mdi-arrow-down'
 }
 function isSortedBy(key) {
 	return !!sortBy.value.find(s => s.key === key)
@@ -167,14 +163,11 @@ onMounted(loadEntries)
 <template>
 	<v-card class="mb-6">
 		<v-card-title class="d-flex align-center pa-4 text-body-large" style="gap: 8px">
-			<div class="flex-grow-1" style="min-width: 0; white-space: normal">
+			<div class="flex-grow-1 me-2" style="min-width: 0; white-space: normal">
 				<div class="text-headline-small">{{ title }}</div>
 				<p v-if="description" class="text-body-medium text-medium-emphasis mt-2 mb-0" style="white-space: pre-line">{{ description }}</p>
 			</div>
-			<v-btn variant="flat" color="primary" @click="openNew">
-				<template #prepend>
-					<SvgIcon :svg="iconPlus" />
-				</template>
+			<v-btn variant="flat" color="primary" @click="openNew" prepend-icon="mdi-plus-circle-outline">
 				New
 			</v-btn>
 		</v-card-title>
@@ -189,13 +182,13 @@ onMounted(loadEntries)
 			show-select item-value="@unid"
 			:row-props="({ item }) => ({ onClick: () => openEdit(item), style: `cursor: pointer${item.Active === false ? '; opacity: 0.4' : ''}` })" hover>
 			<template #header.Value="{ column }">
-				<span class="sort-header">{{ column.title }}<SvgIcon :svg="sortIcon('Value')" :size="14" :style="isSortedBy('Value') ? '' : 'opacity:0.25'" /></span>
+				<span class="sort-header">{{ column.title }}<v-icon size="14" :style="isSortedBy('Value') ? '' : 'opacity:0.25'">{{ sortIcon('Value') }}</v-icon></span>
 			</template>
 			<template #header.Created="{ column }">
-				<span class="sort-header">{{ column.title }}<SvgIcon :svg="sortIcon('Created')" :size="14" :style="isSortedBy('Created') ? '' : 'opacity:0.25'" /></span>
+				<span class="sort-header">{{ column.title }}<v-icon size="14" :style="isSortedBy('Created') ? '' : 'opacity:0.25'">{{ sortIcon('Created') }}</v-icon></span>
 			</template>
 			<template #header.Modified="{ column }">
-				<span class="sort-header">{{ column.title }}<SvgIcon :svg="sortIcon('Modified')" :size="14" :style="isSortedBy('Modified') ? '' : 'opacity:0.25'" /></span>
+				<span class="sort-header">{{ column.title }}<v-icon size="14" :style="isSortedBy('Modified') ? '' : 'opacity:0.25'">{{ sortIcon('Modified') }}</v-icon></span>
 			</template>
 			<template #item.Comment="{ item }">
 				<span style="display: block; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ (item.Comment ?? '').replace(/[\n\r]/g, ' ') }}</span>
@@ -208,11 +201,8 @@ onMounted(loadEntries)
 		<v-divider />
 
 		<v-card-actions class="pa-3">
-			<v-btn color="error" variant="tonal" size="small"
+			<v-btn color="error" variant="tonal" size="small" prepend-icon="mdi-delete-outline"
 				:disabled="!selected.length || deleting" :loading="deleting" @click="deleteSelected">
-				<template #prepend>
-					<SvgIcon :svg="iconDelete" />
-				</template>
 				Delete{{ selected.length ? ` (${selected.length})` : '' }}
 			</v-btn>
 			<v-alert v-if="deleteError" type="error" variant="tonal" density="compact" class="ml-3 py-1"
@@ -285,6 +275,3 @@ onMounted(loadEntries)
 	</v-dialog>
 </template>
 
-<style scoped>
-.sort-header { display: inline-flex; align-items: center; gap: 4px; }
-</style>
