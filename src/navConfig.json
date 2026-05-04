@@ -1,0 +1,47 @@
+[
+	{
+		"label": "Inbound Relay Checks",
+		"items": [
+			{
+				"itemName": "SMTPAllowRelayHosts",
+				"route": "SMTPAllowRelayHosts",
+				"title": "Allow messages only from the following internet hosts to be sent to external internet domains",
+				"description": "The fully qualified host names or IP addresses of connecting hosts for which we will relay messages. Items need only match the end of host names (acme.com will match serv1.acme.com). IP addresses are always enclosed in square brackets and may include * as a wildcard for subnet addresses."
+			}
+		]
+	},
+	{
+		"label": "Inbound Relay Enforcement",
+		"items": [
+			{
+				"itemName": "SMTPRlyExcpts",
+				"route": "SMTPRlyExcpts",
+				"title": "Exclude these connecting hosts from anti-relay checks",
+				"description": "Enter IP addresses or host names to specify hosts exempt from enforcement of the inbound relay controls.\nEnclose IP addresses in square brackets; for example, [127.0.0.1].  You can use wildcards to represent an entire subnet address, but not to represent values in a range. For example, [127.*.0.1] is valid; [123.123.12-*.123] is not."
+			}
+		]
+	},
+	{
+		"label": "Inbound Connection Controls",
+		"items": [
+			{
+				"itemName": "DenyFromInternetDomains",
+				"route": "DenyFromInternetDomains",
+				"title": "Deny connections from the following SMTP internet hostnames/IP addresses",
+				"description": "Refuse messages from these hosts.  Items need only match the end of host names (acme.com will match serv1.acme.com). IP addresses must be enclosed in square brackets and may include * as a wildcard for subnet addresses."
+			}
+		]
+	},
+	{
+		"label": "Inbound Sender Controls",
+		"items": [
+			{
+				"itemName": "DenyFromInternetAddresses",
+				"route": "DenyFromInternetAddresses",
+				"title": "Deny messages from the following internet addresses/domains",
+				"description": "Refuse MAIL FROM SMTP commands whose addresses are specified in this list. Domain names need only match the end of the sender's address (acme.com will match jsmith@serv1.acme.com). Addresses must match exactly (smith@acme.com will not match jsmith@acme.com).",
+				"valueTitle": "Address"
+			}
+		]
+	}
+]
